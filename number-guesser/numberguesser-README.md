@@ -1,4 +1,4 @@
-# Number Guessing Game 🔢
+# Number Guessing Game 
 
 Day 3. The computer picks a random number and you have to guess it, with
 hints along the way telling you if you're too high or too low.
