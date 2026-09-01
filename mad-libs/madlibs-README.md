@@ -1,4 +1,4 @@
-# Mad Libs Generator 🎭
+# Mad Libs Generator 
 
 Day 2 of getting back into Python. This one asks you for a bunch of random 
 words and stuffs them into a story, mad-libs style. Basically an excuse to 
