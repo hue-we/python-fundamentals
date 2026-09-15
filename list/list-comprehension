@@ -1,0 +1,28 @@
+# A list comprehension is a shorter way to build a list from a loop
+
+# The old way
+squares = []
+for x in range(1, 11):
+    squares.append(x ** 2)
+print(f"Squares (loop): {squares}")
+
+# The comprehension way, same result in one line
+squares_comp = [x ** 2 for x in range(1, 11)]
+print(f"Squares (comprehension): {squares_comp}")
+
+# Adding a condition: only even numbers
+evens = [x for x in range(1, 21) if x % 2 == 0]
+print(f"\nEvens: {evens}")
+
+# Rewriting a Week 1 idea: filter a list of words by length
+words = ["python", "code", "a", "loop", "function", "hi"]
+long_words = [word for word in words if len(word) > 3]
+print(f"\nWords longer than 3 letters: {long_words}")
+
+# Transforming while filtering: uppercase only the long words
+long_words_upper = [word.upper() for word in words if len(word) > 3]
+print(f"Long words, uppercased: {long_words_upper}")
+
+# Practical: build a list of (number, square) tuples
+number_squares = [(x, x ** 2) for x in range(1, 6)]
+print(f"\nNumber and square pairs: {number_squares}")
