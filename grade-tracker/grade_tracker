@@ -1,0 +1,74 @@
+students = {}
+
+def add_student():
+    name = input("Enter student name: ")
+    grades_input = input("Enter grades separated by spaces (e.g. 85 90 78): ")
+    grades = [int(g) for g in grades_input.split()]
+    students[name] = grades
+    print(f"Added {name} with grades {grades}\n")
+
+def show_students():
+    if not students:
+        print("No students added yet.\n")
+        return
+    print("\nAll students:")
+    for name, grades in students.items():
+        average = sum(grades) / len(grades)
+        print(f"{name}: {grades} -> average {average:.1f}")
+    print()
+
+def student_average():
+    name = input("Enter student name: ")
+    if name not in students:
+        print("That student isn't in the system.\n")
+        return
+    grades = students[name]
+    average = sum(grades) / len(grades)
+    print(f"{name}'s average: {average:.1f}\n")
+
+def class_stats():
+    if not students:
+        print("No students added yet.\n")
+        return
+
+    averages = {name: sum(grades) / len(grades) for name, grades in students.items()}
+    highest_student = max(averages, key=averages.get)
+    lowest_student = min(averages, key=averages.get)
+
+    print(f"\nHighest average: {highest_student} ({averages[highest_student]:.1f})")
+    print(f"Lowest average: {lowest_student} ({averages[lowest_student]:.1f})\n")
+
+def sorted_by_average():
+    if not students:
+        print("No students added yet.\n")
+        return
+
+    averages = {name: sum(grades) / len(grades) for name, grades in students.items()}
+    ranked = sorted(averages.items(), key=lambda item: item[1], reverse=True)
+
+    print("\nStudents ranked by average:")
+    for rank, (name, avg) in enumerate(ranked, start=1):
+        print(f"{rank}. {name} - {avg:.1f}")
+    print()
+
+print("Grade Tracker")
+print("Commands: add, view, average, stats, rank, quit\n")
+
+while True:
+    command = input("What do you want to do? ").lower()
+
+    if command == "add":
+        add_student()
+    elif command == "view":
+        show_students()
+    elif command == "average":
+        student_average()
+    elif command == "stats":
+        class_stats()
+    elif command == "rank":
+        sorted_by_average()
+    elif command == "quit":
+        print("See you next time")
+        break
+    else:
+        print("Not a valid command, try add, view, average, stats, rank, or quit\n")
