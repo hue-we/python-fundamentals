@@ -1,0 +1,52 @@
+import json
+
+FILENAME = "students.json"
+
+def save_students(students):
+    with open(FILENAME, "w") as f:
+        json.dump(students, f, indent=4)
+    print("Saved to file.\n")
+
+def load_students():
+    try:
+        with open(FILENAME, "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+def add_student(students):
+    name = input("Enter student name: ")
+    grades_input = input("Enter grades separated by spaces (e.g. 85 90 78): ")
+    grades = [int(g) for g in grades_input.split()]
+    students[name] = grades
+    print(f"Added {name} with grades {grades}\n")
+
+def show_students(students):
+    if not students:
+        print("No students added yet.\n")
+        return
+    print("\nAll students:")
+    for name, grades in students.items():
+        average = sum(grades) / len(grades)
+        print(f"{name}: {grades} -> average {average:.1f}")
+    print()
+
+students = load_students()
+print("Grade Tracker (JSON version)")
+print("Commands: add, view, save, quit\n")
+
+while True:
+    command = input("What do you want to do? ").lower()
+
+    if command == "add":
+        add_student(students)
+    elif command == "view":
+        show_students(students)
+    elif command == "save":
+        save_students(students)
+    elif command == "quit":
+        save_students(students)
+        print("Saved and closing. See you next time")
+        break
+    else:
+        print("Not a valid command, try add, view, save, or quit\n")
