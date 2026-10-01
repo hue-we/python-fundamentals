@@ -1,0 +1,77 @@
+class Student:
+    def __init__(self, name, grades=None):
+        self.name = name
+        self.grades = grades if grades else []
+
+    def add_grade(self, grade):
+        self.grades.append(grade)
+
+    def average(self):
+        if not self.grades:
+            return 0
+        return sum(self.grades) / len(self.grades)
+
+    def __str__(self):
+        return f"{self.name}: {self.grades} -> average {self.average():.1f}"
+
+
+class Classroom:
+    def __init__(self):
+        self.students = []
+
+    def add_student(self, name):
+        student = Student(name)
+        self.students.append(student)
+        print(f"Added {name}\n")
+
+    def find_student(self, name):
+        for student in self.students:
+            if student.name == name:
+                return student
+        return None
+
+    def show_all(self):
+        if not self.students:
+            print("No students added yet.\n")
+            return
+        print("\nAll students:")
+        for student in self.students:
+            print(student)
+        print()
+
+    def top_student(self):
+        if not self.students:
+            print("No students added yet.\n")
+            return
+        best = max(self.students, key=lambda s: s.average())
+        print(f"\nTop student: {best.name} with average {best.average():.1f}\n")
+
+
+classroom = Classroom()
+print("Grade Tracker (OOP version)")
+print("Commands: add, grade, view, top, quit\n")
+
+while True:
+    command = input("What do you want to do? ").lower()
+
+    if command == "add":
+        name = input("Enter student name: ")
+        classroom.add_student(name)
+    elif command == "grade":
+        name = input("Enter student name: ")
+        student = classroom.find_student(name)
+        if student:
+            grade = int(input("Enter grade to add: "))
+            student.add_grade(grade)
+            print(f"Added grade {grade} to {name}\n")
+        else:
+            print("That student isn't in the system.\n")
+    elif command == "view":
+        classroom.show_all()
+    elif command == "top":
+        classroom.top_student()
+    elif command == "quit":
+        print("See you next time")
+        break
+    else:
+        print("Not a valid command, try add, grade, view, top, or quit\n")
